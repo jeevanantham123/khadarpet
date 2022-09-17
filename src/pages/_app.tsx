@@ -8,11 +8,34 @@ import type { AppRouter } from "../server/router";
 import "../styles/globals.css";
 import { UserProvider } from "@supabase/auth-helpers-react";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { StepsStyleConfig as Steps } from "chakra-ui-steps";
+import { FormConfig as Form } from "../config/formConfig";
+import Pagelayout from "@components/Pagelayout";
+
+const theme = extendTheme({
+  colors: {
+    brand: {
+      100: "#FD788C",
+      900: "#FF4D67",
+    },
+    secondary: "#F0A4BC",
+    secondaryText: "#B43B56",
+  },
+  components: {
+    Steps,
+    Form,
+  },
+});
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <UserProvider supabaseClient={supabaseClient}>
-      <Component {...pageProps} />
+      <ChakraProvider theme={theme}>
+        <Pagelayout>
+          <Component {...pageProps} />
+        </Pagelayout>
+      </ChakraProvider>
     </UserProvider>
   );
 };

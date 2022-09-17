@@ -19,19 +19,22 @@ const LoginPage: NextPage = () => {
 
   if (!user)
     return (
-      <>
-        {error && <p>{error.message}</p>}
-        {isLoading ? <h1>Loading...</h1> : <h1>Loaded!</h1>}
+      <div className="container w-full flex justify-center items-center min-h-screen">
+        <div className="w-400 p-5">
+          {error && <p>{error.message}</p>}
+          {isLoading && <h1>Loading...</h1>}
 
-        <Auth
-          // view="update_password"
-          supabaseClient={supabaseClient}
-          providers={["google"]}
-          // scopes={{github: 'repo'}} // TODO: enable scopes in Auth component.
-          socialLayout="horizontal"
-          socialButtonSize="xlarge"
-        />
-      </>
+          <Auth
+            // view="update_password"
+            supabaseClient={supabaseClient}
+            providers={["google"]}
+            socialColors={true}
+            onlyThirdPartyProviders={true}
+            socialLayout="horizontal"
+            socialButtonSize="small"
+          />
+        </div>
+      </div>
     );
 
   return (
